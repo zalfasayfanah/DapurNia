@@ -40,20 +40,20 @@
 - Consumes: Node.js, npm
 - Produces: Lingkungan pengembangan Vite + React + TS + Tailwind + Vitest yang siap di-run & di-test.
 
-- [ ] **Step 1: Inisialisasi dependensi & scaffolding package.json**
+- [x] **Step 1: Inisialisasi dependensi & scaffolding package.json**
   Memasang dependencies: `react`, `react-dom`, `lucide-react`, `clsx`, `tailwind-merge`, `class-variance-authority`, `zod`.  
   Dev dependencies: `vite`, `typescript`, `@types/react`, `tailwindcss`, `postcss`, `autoprefixer`, `vitest`, `@testing-library/react`, `@testing-library/jest-dom`, `jsdom`.
 
-- [ ] **Step 2: Konfigurasi Tailwind CSS, PostCSS, dan Desain Token Aksesibilitas**
+- [x] **Step 2: Konfigurasi Tailwind CSS, PostCSS, dan Desain Token Aksesibilitas**
   Membuat `tailwind.config.js` dengan konfigurasi font size, border radius ramah sentuhan, dan palet warna kontras tinggi Dapur Nia.
 
-- [ ] **Step 3: Konfigurasi Vitest (`vitest.config.ts` & `src/test/setup.ts`)**
+- [x] **Step 3: Konfigurasi Vitest (`vitest.config.ts` & `src/test/setup.ts`)**
   Mengonfigurasi environment `jsdom` dan setup matchers `@testing-library/jest-dom`.
 
-- [ ] **Step 4: Uji coba runner test awal**
+- [x] **Step 4: Uji coba runner test awal**
   Jalankan `npm test` untuk memastikan Vitest berjalan lancar dengan sample test.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   ```bash
   git add .
   git commit -m "chore: initialize Vite React TS project with Tailwind, shadcn setup, and Vitest"
@@ -81,19 +81,19 @@
   - `isInsideComplex(address: string): boolean`
   - `isOrderTimeValid(date: Date, cutoffHour?: number): boolean`
 
-- [ ] **Step 1: Tulis failing unit tests untuk 3 Aturan Mutlak & Mesin Status**
+- [x] **Step 1: Tulis failing unit tests untuk 3 Aturan Mutlak & Mesin Status**
   Menguji validasi total tagihan $\ge 0$, penolakan pesanan 0 porsi, aturan transisi linear status, normalisasi WA, dan pengecekan jam 12.00.
 
-- [ ] **Step 2: Jalankan test untuk memverifikasi kegagalan (FAIL)**
+- [x] **Step 2: Jalankan test untuk memverifikasi kegagalan (FAIL)**
   Jalankan `npx vitest run src/domain`
 
-- [ ] **Step 3: Implementasikan domain types, aturan mutlak & validator murni**
+- [x] **Step 3: Implementasikan domain types, aturan mutlak & validator murni**
   Implementasikan fungsi-fungsi di `src/domain/rules/` dan `src/domain/validators/` sesuai spesifikasi PRD.
 
-- [ ] **Step 4: Jalankan test untuk memverifikasi kelulusan (PASS)**
+- [x] **Step 4: Jalankan test untuk memverifikasi kelulusan (PASS)**
   Jalankan `npx vitest run src/domain` dan pastikan 100% lulus.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   ```bash
   git add src/domain/
   git commit -m "feat(domain): implement core entities, 3 absolute rules, and state machine with tests"
@@ -115,19 +115,19 @@
 - Consumes: Domain types & rules
 - Produces: `MockStorageAdapter` yang mengimplementasikan seluruh interface repository dengan simulasi atomic transaction lock & reactive subscription.
 
-- [ ] **Step 1: Tulis failing unit tests untuk MockStorageAdapter**
+- [x] **Step 1: Tulis failing unit tests untuk MockStorageAdapter**
   Uji alur: place order atomic stock decrement, simulasi rebutan porsi (race condition), subscribe real-time updates, pembatalan pesanan yang mengembalikan stok, auto-fill customer, dan kalkulasi 2 laporan harian.
 
-- [ ] **Step 2: Jalankan test untuk memverifikasi kegagalan (FAIL)**
+- [x] **Step 2: Jalankan test untuk memverifikasi kegagalan (FAIL)**
   Jalankan `npx vitest run src/infrastructure/mock`
 
-- [ ] **Step 3: Implementasikan MockStorageAdapter lengkap**
+- [x] **Step 3: Implementasikan MockStorageAdapter lengkap**
   Lengkapi class `MockStorageAdapter` dengan in-memory state Dapur Nia (data menu harian: Ayam Bakar Madu, Rendang Sapi, Sayur Asem, dsb.).
 
-- [ ] **Step 4: Jalankan test untuk memverifikasi kelulusan (PASS)**
+- [x] **Step 4: Jalankan test untuk memverifikasi kelulusan (PASS)**
   Jalankan `npx vitest run src/infrastructure/mock`
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   ```bash
   git add src/services/ src/infrastructure/
   git commit -m "feat(services): implement repository interfaces and mock storage adapter with full tests"
@@ -149,19 +149,19 @@
 **Interfaces:**
 - Produces: Reusable UI components dengan target sentuh $\ge 48\text{px}$, teks 18px-24px, dan validasi file upload $\le 5\text{MB}$.
 
-- [ ] **Step 1: Tulis failing tests untuk PhotoUploader & StatusBadge**
+- [x] **Step 1: Tulis failing tests untuk PhotoUploader & StatusBadge**
   Uji penolakan file $> 5\text{MB}$, penolakan file non-gambar, dan visualisasi status yang tepat.
 
-- [ ] **Step 2: Jalankan test untuk verifikasi FAIL**
+- [x] **Step 2: Jalankan test untuk verifikasi FAIL**
   Jalankan `npx vitest run src/components`
 
-- [ ] **Step 3: Implementasikan komponen UI ramah sentuhan & aksesibel**
+- [x] **Step 3: Implementasikan komponen UI ramah sentuhan & aksesibel**
   Buat komponen dengan styling Tailwind CSS kontras tinggi dan ukuran teks besar.
 
-- [ ] **Step 4: Jalankan test untuk verifikasi PASS**
+- [x] **Step 4: Jalankan test untuk verifikasi PASS**
   Jalankan `npx vitest run src/components`
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   ```bash
   git add src/components/
   git commit -m "feat(ui): create accessible UI components with large touch targets and photo uploader"
@@ -183,19 +183,19 @@
 - Consumes: `IOrderRepository`, `IMenuRepository`, `ICustomerRepository`, UI Components
 - Produces: Halaman katalog menu dengan badge dinamis (Hijau, Oranye, Merah HABIS), banner penutupan jam 12.00, form auto-fill WA, dialog luar kompleks, dan live status tracker.
 
-- [ ] **Step 1: Tulis integration test untuk alur pemesanan pelanggan**
+- [x] **Step 1: Tulis integration test untuk alur pemesanan pelanggan**
   Uji flow dari memilih porsi, auto-fill WA, kalkulasi tagihan + ongkir Rp10.000, submit pesanan, upload bukti bayar, hingga melihat status pesanan.
 
-- [ ] **Step 2: Jalankan test untuk verifikasi FAIL**
+- [x] **Step 2: Jalankan test untuk verifikasi FAIL**
   Jalankan `npx vitest run src/features/customer`
 
-- [ ] **Step 3: Implementasikan komponen fitur Portal Pelanggan**
+- [x] **Step 3: Implementasikan komponen fitur Portal Pelanggan**
   Susun `MenuCatalog`, `OrderForm`, `OutsideComplexModal`, dan `OrderTrackerPage`.
 
-- [ ] **Step 4: Jalankan test untuk verifikasi PASS**
+- [x] **Step 4: Jalankan test untuk verifikasi PASS**
   Jalankan `npx vitest run src/features/customer`
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   ```bash
   git add src/features/customer/
   git commit -m "feat(customer): implement customer menu catalog, order form with auto-fill, and tracker"
@@ -215,19 +215,19 @@
 - Consumes: `IOrderRepository`, RBAC Rules
 - Produces: Antrean pesanan dapur dengan prioritas `WAITING_PAYMENT` di atas, modal inspeksi bukti bayar, tombol Terima/Tolak, dan pembatasan akses Staf (dilarang ubah harga, dilarang batalkan pesanan diproses/dikirim, tanpa menu laporan).
 
-- [ ] **Step 1: Tulis failing test untuk KitchenDashboard & RBAC Staf**
+- [x] **Step 1: Tulis failing test untuk KitchenDashboard & RBAC Staf**
   Uji bahwa pesanan `WAITING_PAYMENT` tampil paling atas, staf dapat menerima/menolak bukti bayar, dan tombol aksi yang dilarang tidak dapat diakses.
 
-- [ ] **Step 2: Jalankan test untuk verifikasi FAIL**
+- [x] **Step 2: Jalankan test untuk verifikasi FAIL**
   Jalankan `npx vitest run src/features/staff`
 
-- [ ] **Step 3: Implementasikan modul KitchenDashboard**
+- [x] **Step 3: Implementasikan modul KitchenDashboard**
   Bangun tampilan antrean dapur yang cepat dan mudah dioperasikan di layar HP dengan satu tangan.
 
-- [ ] **Step 4: Jalankan test untuk verifikasi PASS**
+- [x] **Step 4: Jalankan test untuk verifikasi PASS**
   Jalankan `npx vitest run src/features/staff`
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   ```bash
   git add src/features/staff/
   git commit -m "feat(staff): implement kitchen queue, payment verification, and staff RBAC protections"
@@ -248,19 +248,19 @@
 - Consumes: `IOrderRepository`, `IMenuRepository`, `IReportRepository`
 - Produces: Pengaturan menu harian & kuota porsi, tombol pembatalan darurat Bu Dina dengan pengembalian stok, serta Laporan 1 (Porsi Terjual) & Laporan 2 (Total Kas Masuk).
 
-- [ ] **Step 1: Tulis failing test untuk Manajemen Menu, Pembatalan Darurat, & Laporan Harian**
+- [x] **Step 1: Tulis failing test untuk Manajemen Menu, Pembatalan Darurat, & Laporan Harian**
   Uji perubahan harga/kuota, pembatalan pesanan darurat (stok kembali), dan kalkulasi 2 laporan harian yang mengabaikan pesanan `CANCELLED`.
 
-- [ ] **Step 2: Jalankan test untuk verifikasi FAIL**
+- [x] **Step 2: Jalankan test untuk verifikasi FAIL**
   Jalankan `npx vitest run src/features/owner`
 
-- [ ] **Step 3: Implementasikan modul OwnerDashboard & DailyReports**
+- [x] **Step 3: Implementasikan modul OwnerDashboard & DailyReports**
   Buat UI ringkas dengan angka-angka besar dan tabel belanja bahan yang mudah dibaca Bu Dina.
 
-- [ ] **Step 4: Jalankan test untuk verifikasi PASS**
+- [x] **Step 4: Jalankan test untuk verifikasi PASS**
   Jalankan `npx vitest run src/features/owner`
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   ```bash
   git add src/features/owner/
   git commit -m "feat(owner): implement menu quota manager, emergency cancel, and daily reports"
@@ -280,19 +280,19 @@
 - Consumes: Seluruh modul fitur & context
 - Produces: Single Page Application terintegrasi penuh dengan simulasi pengalihan peran (Pelanggan, Rani, Dina) dan PWA capability.
 
-- [ ] **Step 1: Tulis E2E integration test mencakup keseluruhan alur aplikasi**
+- [x] **Step 1: Tulis E2E integration test mencakup keseluruhan alur aplikasi**
   Simulasikan flow lengkap: Pelanggan memesan $\rightarrow$ Mbak Rani konfirmasi bukti $\rightarrow$ Bu Dina tandai dikirim & selesai $\rightarrow$ Bu Dina cek laporan harian.
 
-- [ ] **Step 2: Jalankan test untuk verifikasi FAIL**
+- [x] **Step 2: Jalankan test untuk verifikasi FAIL**
   Jalankan `npx vitest run src/App.test.tsx`
 
-- [ ] **Step 3: Implementasikan App Shell, Navigasi Tab / Role Switcher, & Service Provider**
+- [x] **Step 3: Implementasikan App Shell, Navigasi Tab / Role Switcher, & Service Provider**
   Sambungkan seluruh komponen ke dalam `App.tsx` dengan UI header ramah dan notifikasi toast.
 
-- [ ] **Step 4: Jalankan test untuk verifikasi PASS**
+- [x] **Step 4: Jalankan test untuk verifikasi PASS**
   Jalankan `npm test` untuk memverifikasi seluruh test suite lulus 100%.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
   ```bash
   git add src/App.tsx src/context/ src/App.test.tsx
   git commit -m "feat: assemble integrated mobile web app with role navigation and end-to-end test suite"
@@ -316,16 +316,16 @@
 - Consumes: Firebase Client SDK
 - Produces: Konfigurasi adapter Firebase aktif, Firestore Security Rules (enforcement 3 aturan mutlak), dan Storage Rules yang siap dihubungkan saat file `.env` diisi oleh user.
 
-- [ ] **Step 1: Buat `.env.example` dan helper konfigurasi `src/infrastructure/firebase/config.ts`**
+- [x] **Step 1: Buat `.env.example` dan helper konfigurasi `src/infrastructure/firebase/config.ts`**
   Mendefinisikan variabel lingkungan Firebase yang dibutuhkan.
 
-- [ ] **Step 2: Tulis `firestore.rules` dan `storage.rules`**
+- [x] **Step 2: Tulis `firestore.rules` dan `storage.rules`**
   Menegakkan validasi `totalAmount >= 0`, `remainingStock >= 0`, status state machine guard per role, dan pembatasan upload foto $\le 5\text{MB}$.
 
-- [ ] **Step 3: Implementasikan adapter Firebase berbasis Firestore real-time listeners**
+- [x] **Step 3: Implementasikan adapter Firebase berbasis Firestore real-time listeners**
   Membuat implementasi `FirebaseOrderAdapter`, `FirebaseMenuAdapter`, dsb. yang siap dipakai saat mode Firebase diaktifkan.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
   ```bash
   git add firestore.rules storage.rules .env.example src/infrastructure/firebase/
   git commit -m "feat(firebase): prepare Firebase adapters, security rules, and env configuration"

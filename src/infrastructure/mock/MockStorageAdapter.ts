@@ -88,6 +88,31 @@ export class MockStorageAdapter
     this.menuSubscribers.forEach((cb) => cb(list));
   }
 
+  async createMenu(menuData: {
+    name: string;
+    price: number;
+    initialQuota: number;
+    imageUrl?: string;
+    isActive?: boolean;
+  }): Promise<MenuItem> {
+    const id = `menu-${Date.now()}`;
+    const newMenu: MenuItem = {
+      id,
+      name: menuData.name,
+      price: menuData.price,
+      initialQuota: menuData.initialQuota,
+      remainingStock: menuData.initialQuota,
+      imageUrl:
+        menuData.imageUrl ||
+        'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80',
+      isActive: menuData.isActive !== undefined ? menuData.isActive : true,
+      updatedAt: new Date().toISOString(),
+    };
+    this.menus.set(id, newMenu);
+    this.notifyMenuSubscribers();
+    return newMenu;
+  }
+
   async updateMenuPrice(menuId: string, newPrice: number): Promise<void> {
     const menu = this.menus.get(menuId);
     if (!menu) throw new Error('Menu tidak ditemukan');
@@ -102,6 +127,12 @@ export class MockStorageAdapter
     menu.initialQuota = newQuota;
     menu.remainingStock = newQuota;
     menu.updatedAt = new Date().toISOString();
+    this.notifyMenuSubscribers();
+  }
+
+  async deleteMenu(menuId: string): Promise<void> {
+    const deleted = this.menus.delete(menuId);
+    if (!deleted) throw new Error('Menu tidak ditemukan');
     this.notifyMenuSubscribers();
   }
 

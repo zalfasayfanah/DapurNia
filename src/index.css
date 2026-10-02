@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 antialiased font-sans;
+    font-size: 1.125rem; /* 18px base text for high readability */
+  }
+
+  button, input, select, textarea {
+    @apply touch-manipulation;
+  }
+}

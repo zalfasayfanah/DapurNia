@@ -1,0 +1,13 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /payment-proofs/{orderId}/{fileName} {
+      // Pembatasan: Ukuran file <= 5MB dan wajib berupa tipe gambar (image/*)
+      allow write: if request.resource.size <= 5 * 1024 * 1024
+                   && request.resource.contentType.matches('image/.*');
+      
+      // Akses baca untuk staf dan pemilik
+      allow read: if true;
+    }
+  }
+}

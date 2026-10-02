@@ -1,0 +1,64 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // --- Aturan Koleksi: menus ---
+    match /menus/{menuId} {
+      // Siapapun (termasuk Tamu/Guest) boleh membaca daftar menu hari ini
+      allow read: if true;
+
+      // Hanya Bu Dina (Owner) yang berwenang mengubah harga dan kuota menu
+      allow write: if request.auth != null && request.auth.token.role == 'owner';
+    }
+
+    // --- Aturan Koleksi: customers ---
+    match /customers/{whatsapp} {
+      allow read, write: if true;
+    }
+
+    // --- Aturan Koleksi: orders ---
+    match /orders/{orderId} {
+      // Tamu, Rani, dan Dina dapat membaca pesanan
+      allow read: if true;
+
+      // Penegakan Aturan Mutlak 1: Total Tagihan >= 0 & Validasi Ongkir Flat
+      allow create: if isValidOrderCreation(request.resource.data);
+
+      // Penegakan Aturan Mutlak 3: Mesin Status Linear & RBAC Peran
+      allow update: if request.auth != null && isValidStatusTransition(
+        resource.data.status,
+        request.resource.data.status,
+        request.auth.token.role
+      );
+    }
+
+    function isValidOrderCreation(order) {
+      return order.totalAmount is number &&
+             order.totalAmount >= 0.0 &&
+             order.subtotalMenu is number &&
+             order.subtotalMenu > 0.0 &&
+             order.deliveryFee == 10000.0 &&
+             order.discount is number &&
+             order.discount >= 0.0 &&
+             order.totalAmount == (order.subtotalMenu + order.deliveryFee - order.discount) &&
+             order.status == 'WAITING_PAYMENT';
+    }
+
+    function isValidStatusTransition(oldStatus, newStatus, role) {
+      return (
+        // WAITING_PAYMENT -> PROCESSING (Dina / Rani)
+        (oldStatus == 'WAITING_PAYMENT' && newStatus == 'PROCESSING' && (role == 'owner' || role == 'staff')) ||
+        // WAITING_PAYMENT -> CANCELLED (Dina / Rani)
+        (oldStatus == 'WAITING_PAYMENT' && newStatus == 'CANCELLED' && (role == 'owner' || role == 'staff')) ||
+        // PROCESSING -> SHIPPED (Dina / Rani)
+        (oldStatus == 'PROCESSING' && newStatus == 'SHIPPED' && (role == 'owner' || role == 'staff')) ||
+        // PROCESSING -> CANCELLED (HANYA Bu Dina)
+        (oldStatus == 'PROCESSING' && newStatus == 'CANCELLED' && role == 'owner') ||
+        // SHIPPED -> COMPLETED (Dina / Rani)
+        (oldStatus == 'SHIPPED' && newStatus == 'COMPLETED' && (role == 'owner' || role == 'staff')) ||
+        // SHIPPED -> CANCELLED (HANYA Bu Dina)
+        (oldStatus == 'SHIPPED' && newStatus == 'CANCELLED' && role == 'owner')
+      );
+    }
+  }
+}
